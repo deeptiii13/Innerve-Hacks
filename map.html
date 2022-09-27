@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8">
+    <title>Complex icons</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    a:link {
+	color: #F30;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #900;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeaaGNMGMvFeaYE4Tj8kf8LSP9XGupe9w&sensor=false"></script>
+    <script>
+// This map shows food joints in Austin, Texas
+// The initialize function below sets the location of the map and the zoom level
+
+function initialize() {
+  var mapOptions = {
+    zoom: 13,
+    center: new google.maps.LatLng(30.26, -97.75)
+  }
+  var map = new google.maps.Map(document.getElementById('map-canvas'),
+                                mapOptions);
+
+  setMarkers(map, capital);
+}
+
+/**
+ * Data for the markers consisting of a name, a LatLng and a zIndex for
+ * the order in which these markers should display on top of each
+ * other. The 4th variable is the infowindow description, and the last one
+ * is the location of the custom flag icon
+ */
+var capital = [
+  ['Arro Austin', 30.269701, -97.748663, 5, '<strong>Arro</strong><br/>This downtown bistro, housed in a low-rise brick building with steel and glass warehouse windows, “gives an honest nod to classic French dishes and techniques,” says executive chef and co-owner Andrew Curren. Dishes such as duck confit and mussels and frites may have originated across the pond, but ingredients are often sourced from Austin food artisans. Bread pairings, for example, combine freshly baked baguettes or nine-grain loaves from sister property Easy Tiger bakery, while choice cheeses hail from Antonelli’s, one of the city’s top fromage shops. The all-French wine menu is also regularly updated by star sommelier team Craig Collins and Devon Broglie.<br/><br/><a href="http://www.arroaustin.com">ArroAustin.com</a>', 'http://www.travelandescape.ca/wp-content/uploads/2014/03/ficon1.png'],
+  
+['Barlata', 30.252642, -97.764221, 6, '<strong>Barlata</strong><br/>Many of Austin’s restaurants thrive on fusion, combining Korean and Texas barbecue, for example, or rolling sushi with Mexican ingredients. Not so at Barlata, which stands out for its focused and solid Spanish cuisine. Chef Daniel Olivella, who hails from the Penedes region of Spain, whips up classic tapas such as gambas ajillo (shrimp bubbling in hot olive oil and garlic), or boquerones (anchovies) on top of pears and Spanish cheese in an open kitchen. Or for the more adventurous, the arros negre, a rice-based dish with squid ink, clams and a garlicky aioli. While you wait for a table, head to the bar for Spanish wines organized by region.<br/><br/><a href="http://www.barlataaustin.com">BarlataAustin.com</a>', 'http://www.travelandescape.ca/wp-content/uploads/2014/03/ficon1.png'],
+
+  ['Daruma Ramen', 30.266329, -97.736585, 4, '<strong>Daruma Ramen</strong><br/>Daruma is the latest ramen-focused restaurant in a city that’s becoming increasingly noodle crazed. Its competition is fierce: Ramen Tatsu-Ya in North Austin has a cult following for its buoyant noodles and balanced pork broths. Luckily, Daruma has pedigree—it’s the sister spot to popular Japanese restaurant Komé—as well as an ideal downtown location. Diners in the small and cheerful space choose from one of four bowls, including a distinctive fruit and vegetable stew topped with bright grape tomatoes, silky avocado and other fresh veggies, ideal for vegans. <br/><br/><a href="http://www.darumaramen.com">DarumaRamen.com</a>', 'http://www.travelandescape.ca/wp-content/uploads/2014/03/ficon1.png'],
+
+  ['Jeffrey & Josephines', 30.280482, -97.758957, 3, '<strong>Jeffrey &amp;Josephines</strong><br/>Chef and restaurateur Larry McGuire and his partner Thomas Moorman are known for a design-focused approach to their restaurant collection, most recently Jeffrey’s and Josephine House. These neighbouring eateries, distinct in identity, have a symbiotic relationship. Josephine House, with white wood paneled walls and Nakashima chairs, is open for lunch and evening snacks and cocktails. A crisp marble counter has freshly baked bread and family-style salads; housemade pastas and sandwiches roll out of an open kitchen window. Next door, Jeffrey’s, which originally opened in 1975, emerged from a yearlong renovation in April. Waiters donning smoking jackets head tableside with martini carts and dishes such as aged porterhouse steak and wood-roasted lobster thermidor. If you want to play ball on a budget, head to the bar for a martini and the crispy fried Gulf oysters topped with a parsnip pureé.<br/><br/><a href="http://www.jeffreysofaustin.com">JeffreysofAustin.com</a> &nbsp;<a href="http://www.josephineofaustin.com">JosephineofAustin.com</a>', 'http://www.travelandescape.ca/wp-content/uploads/2014/03/ficon1.png'],
+
+  ['Mettle', 30.258469, -97.712459, 4, '<strong>Mettle</strong><br/>Sixth Street, known for its bars and lounges, dead ends into Mettle’s parking lot, making the restaurant an exclamation point of sorts for the storied thoroughfare. The dining room is housed in an industrial space with tall leather booths, polished concrete floors and concept pieces made of wood, glass and metal by area artists. The menu changes seasonally, though owner Bridget Dunlap insists that a cheeseburger—one version has lardo, tomato, onion and steak sauce—always makes the list.<br/><br/><a href="http://www.mettleaustin.com">MettleAustin.com</a>', 'http://www.travelandescape.ca/wp-content/uploads/2014/03/ficon1.png'],
+ 
+  ['Qui', 30.263293, -97.726432, 3, '<strong>Qui</strong><br/>Chef Paul Qui’s namesake restaurant was one of Austin’s most anticipated openings when it finally opened its doors in June. It delivers, thanks to an only-in-A-town atmosphere—the chef roped in local artists, designers and architects to help build the culinary temple—and a daily changing menu. Among other key dishes, the Rabbit 7 Ways is both inventive and artfully plated; while it’s a splurge at $150 US, the côte du boeuf, a Texas wagyu, is expertly executed. Save room for the avocado qui lime pie made with avocado, almond flour and a chili meringue.<br/><br/><a href="http://www.quiaustin.com">QuiAustin.com</a>', 'http://www.travelandescape.ca/wp-content/uploads/2014/03/ficon1.png'],
+  
+  ['Yellow Jacket Social Club', 30.261451, -97.724835, 3, '<strong>Yellow Jacket Social Club</strong><br/>Mismatched chairs and picnic tables dot the lawn of this mostly outdoor lounge that backs up to the commuter rail on 5th Street. While the dive bar attracts a cult following for its laid-back vibe, it also dresses things up with a small plates menu that includes artisanal cheeses, salt cured meats and sandwich selections.<br/><br/><a href="http://www.yellowjacketsocialclub.com">YellowJacketSocialClub.com</a>', 'http://www.travelandescape.ca/wp-content/uploads/2014/03/ficon3.png'],
+  
+  ['Franklin BBQ', 30.269986, -97.731388, 3, '<strong>Franklin BBQ</strong><br/>Ever since opening in a food trailer in 2009 (the restaurant went brick and mortar two years later), Franklin Barbecue has raked in rave reviews from smoked meat critics—of which there are many in Texas—for its tender brisket and sausage. Salt and pepper are said to be the only ingredients, but pit master Aaron Franklin has his overnight oak smoking down to a science. You have to earn your bite: The wait is notoriously long, so much so that side businesses—chairs to rent, water for sale—have sprung up in recent months.<br/><br/><a href="http://www.franklinbarbecue.com">FranklinBarbecue.com</a>', 'http://www.travelandescape.ca/wp-content/uploads/2014/03/ficon3.png'],
+  
+  ['Salt & Time', 30.262324, -97.721249, 6, '<strong>Salt &amp; Time</strong><br/>It’s not uncommon to see a glass meat locker in a restaurant anymore, most notably at La Salle À Manger in Montreal or Underbelly in Houston, Texas. The transparent case is a not-so-subtle window into the farm to table food cycle. At Salt & Time, though, the butcher came first—selling house cured salumis and meats from surrounding Texas ranches at farmers markets, festivals and events —and the brick and mortar butcher and restaurant followed. Whether you start with the housemade salumi board or liver and onions, be sure to end with the donuts, fried in beef fat.<br/><br/><a href="http://www.saltandtime.com">Salt&amp;Time.com</a>', 'http://www.travelandescape.ca/wp-content/uploads/2014/03/ficon3.png'],
+  
+  ['Juan in a Million', 30.255221, -97.719217, 3, '<strong>Juan in a Million</strong><br/>Simple and filling Mexican fare has been the staple here for over 30 years. Whether you opt for the huevos rancheros or the taco grande—eggs, bacon, potatoes and cheese piled on top of tortillas—a meal in this casual joint is an Austin right of passage.<br/><br/><a href="http://www.juaninamillion.com">JuanInAMillion.com</a>', 'http://www.travelandescape.ca/wp-content/uploads/2014/03/ficon3.png'],
+  
+  ['Cenote', 30.260298, -97.733766, 3, '<strong>Cenote</strong><br/>You’ll see hip entrepreneurs sipping Cuvee coffee—the addictive beans are roasted locally—in this little blue bungalow, surrounded by picnic tables and a white picket fence. For post-work crowds, Cenote serves beer and wine, as well as noshes such as ceviche and pulled pork rolled up in corn tortillas. On weekends, catch live music or open mic comedy shows.<br/><br/><a href="http://www.cenoteaustin.com">CenoteAustin.com</a>', 'http://www.travelandescape.ca/wp-content/uploads/2014/03/ficon3.png'],
+  
+    ['Bufalina', 30.258580, -97.728843, 3, '<strong>Bufalina</strong><br/>If a pizza oven could be described as fashionable, then Bufalina’s walks the runway. It’s bulbous and shiny, and manages to stay stark white despite its fill of charred logs and licking flames. It also delivers nearly perfect pies made up of soft, doughy crusts, sumptuous olive oil, and seasonal toppings. Our only complaint? A wait is almost unavoidable.<br/><br/><a href="http://www.bufalinapizza.com">BufalinaPizza.com</a>', 'http://www.travelandescape.ca/wp-content/uploads/2014/03/ficon2.png'],
+	
+	  ['Umami Mia', 30.261581, -97.760093, 3, '<strong>Umami Mia Pizzeria</strong><br/>This funky joint catches foot traffic from nearby Barton Springs, a swimming pool fed by natural springs, and Zilker Park. Many diners are drawn in by the outdoor patio and live music and stick around for creative pies. Try the prosciutto and mission fig pizza or the “Here Piggy” pie, named for its bacon and fried carrot toppings.<br/><br/><a href="http://www.umamimiapizzeria.com">UmamiMiaPizzeria.com</a>', 'http://www.travelandescape.ca/wp-content/uploads/2014/03/ficon2.png'],
+	  
+	    ['Winflo', 30.273778, -97.759927, 3, '<strong>Winflo Osteria</strong><br/>There isn’t a bad seat in—or out of—the house at this 1922 craftsman-style bungalow. A massive live oak tree wrapped in twinkling lights shades a patio dotted with tables; wood panelled interiors have original artwork and a stylish bar. Among the Neapolitan-style pies, the Carbonara pizza, topped with Pecorino Romano cream sauce, pancetta, and an egg, is a standout. The menu also has a nice antipasti and pasta selection.<br/><br/><a href="http://www.winfloosteria.com">WinfloOsteria.com</a>', 'http://www.travelandescape.ca/wp-content/uploads/2014/03/ficon2.png'],
+];
+
+function setMarkers(map, locations) {
+  // Add markers to the map
+
+  // Marker sizes are expressed as a Size of X,Y
+  // where the origin of the image (0,0) is located
+  // in the top left of the image.
+
+  // Origins, anchor positions and coordinates of the marker
+  // increase in the X direction to the right and in
+  // the Y direction down.
+
+  
+  for (var i = 0; i < locations.length; i++) {
+    var austin = locations[i];
+    var myLatLng = new google.maps.LatLng(austin[1], austin[2]);
+    var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        icon: setimage(austin[5]),
+        title: austin[0],
+        zIndex: austin[3],
+		optimized:false
+    });
+	
+	setinfowindow(marker, austin [4]);
+  }
+}
+
+// The markers and infowindows are called on here, and a maxwidth is defined for the info window
+function setinfowindow(marker, message) {
+  var infowindow = new google.maps.InfoWindow({
+    content: message,
+	maxWidth: 320
+  });
+
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.open(marker.get('map'), marker);
+  });
+}
+// The setimage function finds the custom pin and defines its size and anchor below
+function setimage(path){
+return {
+	url: path,
+    // This marker is 26 pixels wide by 30 pixels tall.
+    size: new google.maps.Size(26, 30),
+    // The origin for this image is 0,0.
+    origin: new google.maps.Point(0,0),
+    // The anchor for this image is the base of the flagpole at 0,32.
+    anchor: new google.maps.Point(13, 30)
+  };
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+  <div id="map-canvas"></div>
+  </body>
+</html>
